@@ -39,6 +39,7 @@
 import rospy
 from std_msgs.msg import Float32
 from sensor_msgs.msg import LaserScan
+from ros_exercises.msg import OpenSpace
 
 
 def open_space_publisher():
@@ -49,16 +50,17 @@ def open_space_publisher():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
 
-    pub_dist = rospy.Publisher("open_space/distance",Float32, queue_size = 10)
-    pub_angle = rospy.Publisher("open_space/angle", Float32, queue_size=10)
+    pub = rospy.Publisher("open_space",OpenSpace, queue_size = 10)
     rospy.init_node('open_space_subscriber', anonymous=True)
 
     def callback(data):
         max_index = data.ranges.index(max(data.ranges))
         max_dist = data.ranges[max_index]
         max_angle = data.angle_increment * max_index + data.angle_min
-        pub_dist.publish(max_dist)
-        pub_angle.publish(max_angle)
+        open_space = OpenSpace()
+        open_space.angle = max_angle
+        open_space.distance = max_dist
+        pub.publish(open_space)
 
 
     rospy.Subscriber('fake_scan', LaserScan, callback)
