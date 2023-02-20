@@ -43,7 +43,7 @@ import random
 
 def fake_scan_publisher():
 
-    pub = rospy.Publisher('fake_scan_publisher', LaserScan, queue_size=10)
+    pub = rospy.Publisher('fake_scan', LaserScan, queue_size=10)
     rospy.init_node('fake_scan_publisher', anonymous=True)
     rate = rospy.Rate(20) # 20hz
 
