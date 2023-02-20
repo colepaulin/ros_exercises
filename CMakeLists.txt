@@ -160,7 +160,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/simple_publisher.py scripts/simple_subscriber.py
+  scripts/simple_publisher.py scripts/simple_subscriber.py scripts/fake_scan_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
