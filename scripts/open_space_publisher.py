@@ -50,7 +50,7 @@ def open_space_publisher():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
 
-    pub = rospy.Publisher("open_space",OpenSpace, queue_size = 10)
+    pub = rospy.Publisher(rospy.get_param("pub_topic","open_space"),OpenSpace, queue_size = 10)
     rospy.init_node('open_space_subscriber', anonymous=True)
 
     def callback(data):
@@ -63,7 +63,7 @@ def open_space_publisher():
         pub.publish(open_space)
 
 
-    rospy.Subscriber('fake_scan', LaserScan, callback)
+    rospy.Subscriber(rospy.get_param('sub_topic',"fake_scan"), LaserScan, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

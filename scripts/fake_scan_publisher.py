@@ -43,9 +43,9 @@ import random
 
 def fake_scan_publisher():
 
-    pub = rospy.Publisher('fake_scan', LaserScan, queue_size=10)
+    pub = rospy.Publisher(rospy.get_param("pub_topic",'fake_scan'), LaserScan, queue_size=10)
     rospy.init_node('fake_scan_publisher', anonymous=True)
-    rate = rospy.Rate(20) # 20hz
+    rate = rospy.Rate(rospy.get_param("pub_rate",20)) # 20hz
 
     while not rospy.is_shutdown():
 
@@ -56,7 +56,7 @@ def fake_scan_publisher():
         laser_scan.angle_min = rospy.get_param("angle_min",-2.0 * pi / 3.0)
         laser_scan.angle_max = rospy.get_param("angle_max",2.0 * pi / 3.0)
         laser_scan.angle_increment = rospy.get_param("angle_increment", 1.0 * pi / 300)
-        laser_scan.scan_time = 1.0 / 20.0
+        laser_scan.scan_time = rospy.get_param("scan_time", 1.0 / 20.0)
         laser_scan.range_min = rospy.get_param('range_min', 1.0)
         laser_scan.range_max = rospy.get_param('range_max', 10.0)
 
